@@ -11,6 +11,16 @@ router.get("/", (req, res) => {
       })
       .catch(err => res.send(err));
   });
+
+  router.get("/:id", (req, res) => {
+    const { id } = req.params;
+    
+    Users.findById(id)
+      .then(users => {
+        res.json(users);
+      })
+      .catch(err => res.send(err));
+  });
   
   module.exports = router;
 
