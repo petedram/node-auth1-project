@@ -40,7 +40,7 @@ const sessionConfig = {
 
   store: new knexSessionStore(
     {
-      knex: require("../data/dbConfig.js"),
+      knex: require("../data/dbConfig"),
       tablename: "sessions",
       sidfieldname: "sid",
       createtable: true,
@@ -53,6 +53,8 @@ const sessionConfig = {
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
+
+server.use(session(sessionConfig));
 
 server.use("/api/users", restricted, usersRouter);
 server.use("/api/auth", authRouter);

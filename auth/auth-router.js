@@ -127,6 +127,8 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     let { username, password } = req.body;
 
+    console.log(username, password);
+
 
     Users.findBy({ username })
         .first()
@@ -137,6 +139,7 @@ router.post('/login', (req, res) => {
             // It then compares the newly computed hash with the one we read
             // from the database, and returns "true" if they are a match.
             if (user && bcrypt.compareSync(password, user.password)) {
+              console.log('success! ', username);
                 // once we are here, we are authenticated. We want to add
                 // something to req.session to indicate success here... one
                 // option is:
@@ -156,6 +159,7 @@ router.post('/login', (req, res) => {
                 // Remember that this will force a session record to be created,
                 // and a set-cookie header to be sent back to the browser.
                 // Exactly what we want. 
+
                 req.session.user = username;
                 res.status(200).json({ message: `Welcome ${user.username}!`, });
             } else {
@@ -172,6 +176,7 @@ router.post('/login', (req, res) => {
             res.status(500).json(error);
         });
 });
+
 
 //----------------------------------------------------------------------------//
 // logging out could be done with the GET or POST or PUT or any HTTP method...
