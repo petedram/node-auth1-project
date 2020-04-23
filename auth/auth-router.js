@@ -161,12 +161,12 @@ router.post('/login', (req, res) => {
                 // Exactly what we want. 
 
                 req.session.user = username;
-                res.status(200).json({ message: `Welcome ${user.username}!`, });
+                res.status(200).json({ message: `Logged in ${user.username}!`, });
             } else {
                 // req.session.user will not exist if we end up here... see
                 // above... so we are not in danger of a session being created -
                 // we just don't modify req.session, and we are good.
-                res.status(401).json({ message: 'invalid credentials' });
+                res.status(401).json({ message: 'you shall not pass!' });
             }
         })
         .catch(error => {
@@ -193,7 +193,7 @@ router.delete('/logout', (req, res) => {
             if (err) {
                 res.status(400).json({ message: 'error logging out:', error: err });
             } else {
-                res.json({ message: 'logged out' });
+                res.json({ message: 'logged out'  });
             }
         });
     } else {
